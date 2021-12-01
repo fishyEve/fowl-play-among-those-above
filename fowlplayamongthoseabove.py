@@ -26,8 +26,6 @@ mainloop()
 from termcolor import colored
 
 
-
-
 def start():
     print()
     print("Why are your memories so foggy?")
@@ -44,8 +42,17 @@ def start():
     elif 'n' in voidansw:
         proceed()
     else:
-        #if the player typed something else
+        #if the player typed something else  
         game_over("I said yes or no, meaning yes or no")
+
+def selection_sound(): #sound that plays when user makes a choice that doesn't lead to a game over
+    mixer.init()
+    mixer.music.load(select_sound) 
+    mixer.music.set_volume(2.5)
+    mixer.music.play(loops=0)
+
+
+
 def void_room():
     print()
     print(colored("Oh. So you wanted to stay here.", "blue", attrs= ['bold']))
@@ -54,10 +61,7 @@ def void_room():
     print(colored("Well, there's really nothing left here, so I guess I'm going to give you a game over.", "blue", attrs= ['bold']))
     game_over("You wanted to stay in the void")
 def proceed():
-    mixer.init()
-    mixer.music.load(select_sound) 
-    mixer.music.set_volume(2.5)
-    mixer.music.play(loops=0)
+    selection_sound()
     print()
     print(colored("So you wish to leave this void.", "blue", attrs= ['bold']))
     print(colored("Excellent.", "blue", attrs= ['bold']))
@@ -79,10 +83,7 @@ def stuck_in_void():
     print (colored("Very well. Have fun in the eternal nothingness", "blue", attrs= ['bold']))
     game_over ("You didn't agree to the terms.")
 def warp_room():
-    mixer.init()
-    mixer.music.load(select_sound) 
-    mixer.music.set_volume(2.5)
-    mixer.music.play(loops=0)
+    selection_sound()
     print()
     print (colored("Great.", "blue", attrs= ['bold']))
     print (colored("You should be on your way then.", "blue", attrs= ['bold']))
@@ -90,26 +91,17 @@ def warp_room():
     print ("(yes or no)")
     leaveansw= input().lower()
     if 'y' in leaveansw:
-        mixer.init()
-        mixer.music.load(select_sound) 
-        mixer.music.set_volume(2.5)
-        mixer.music.play(loops=0)
+        selection_sound()
         print()
         print(colored("Great. Do not disappoint me", "blue", attrs= ['bold']))
         outside_of_dungeon()
     elif 'n' in leaveansw:
-        mixer.init()
-        mixer.music.load(select_sound) 
-        mixer.music.set_volume(2.5)
-        mixer.music.play(loops=0)
+        selection_sound()
         print()
         print (colored("That sucks because I'm ready for you to leave. Get out of my realm and do not disappoint me.", "blue", attrs= ['bold']))
         outside_of_dungeon()
     else:
-        mixer.init()
-        mixer.music.load(select_sound) 
-        mixer.music.set_volume(2.5)
-        mixer.music.play(loops=0)
+        selection_sound()
         print()
         print (colored("I don't know what the heck you're talking about, it was a yes or no answer", "blue", attrs= ['bold']))
         print (colored("Whatever, just get out of here. You're lucky I'm not giving you a game over", "blue", attrs= ['bold']))
@@ -128,10 +120,7 @@ def outside_of_dungeon():
     else:
         game_over("These instructions are so simple to follow, why do you fail me so?")
 def stay():
-    mixer.init()
-    mixer.music.load(select_sound) 
-    mixer.music.set_volume(2.5)
-    mixer.music.play(loops=0)
+    selection_sound()
     print()
     print("You decide to stay put, hidden in the thicket.")
     print("You're able to make out a little bit of the conversation from the voices...")
@@ -163,10 +152,7 @@ def wolfdeath():
     print("The creature sinks its jaws into your skin without hesitation.")
     game_over("Those sharp teeth are the last thing you ever saw again.")
 def approach():
-    mixer.init()
-    mixer.music.load(select_sound) 
-    mixer.music.set_volume(2.5)
-    mixer.music.play(loops=0)
+    selection_sound()
     print("You walk toward the sounds and come across a group of 5")
     print("Two appear to be human. Two appear to be elves. And one appears to be...")
     print("Uh...you don't know...are those fangs?")
@@ -187,10 +173,7 @@ def approach():
     else:
         game_over("I said 1 or 2. Not 1 or 2 or whatever you just typed.")
 def stand():
-    mixer.init()
-    mixer.music.load(select_sound) 
-    mixer.music.set_volume(2.5)
-    mixer.music.play(loops=0)
+    selection_sound()
     print()
     print("You, somewhat awkwardly, just stand there. The others got this, right?")
     print("The fanged member of the party was quick to lunge at the wolf.")
@@ -221,10 +204,7 @@ def rundeath():
     print(colored("???: 'Gale, can you stop talking for at least five minutes?'", "magenta"))
     game_over("You're dead and Gale is probably going to drink your blood.")
 def stick():
-    mixer.init()
-    mixer.music.load(select_sound) 
-    mixer.music.set_volume(2.5)
-    mixer.music.play(loops=0)
+    selection_sound()
     print()
     print("You reach down and pick up the stick from the ground")
     print("You feel sort of strange...it was hard to find words to describe the feeling.")
@@ -247,10 +227,7 @@ def stick():
     if speakingansw == "2":
         speak()
 def speak():
-    mixer.init()
-    mixer.music.load(select_sound) 
-    mixer.music.set_volume(2.5)
-    mixer.music.play(loops=0)
+    selection_sound()
     print()
     print("You take a breath, before opening your mouth")
     print(colored("You: 'I think it could have been because of this?'", "blue"))
@@ -297,10 +274,7 @@ def speak():
         game_over("You had one job: choose y or n. Foolish mortal.")
 
 def silence():
-    mixer.init()
-    mixer.music.load(select_sound) 
-    mixer.music.set_volume(2.5)
-    mixer.music.play(loops=0)
+    selection_sound()
     print()
     print(colored("Female Human: 'Me. It was me.'", "magenta"))
     print(colored("Male Human: 'I didn't know you knew a spell like that...'", "red"))
@@ -377,10 +351,7 @@ def user_nojoin():
 
 
 def user_joins():
-    mixer.init()
-    mixer.music.load(select_sound) 
-    mixer.music.set_volume(2.5)
-    mixer.music.play(loops=0)
+    selection_sound()
     print()
     print("Poloma's face seems to light up. She seems...excited?")
     print(colored("Poloma: 'Wow! I didn't think you'd actually join us.'", "yellow"))
@@ -431,10 +402,7 @@ def user_joins():
 
 
 def right_path():
-    mixer.init()
-    mixer.music.load(select_sound) 
-    mixer.music.set_volume(2.5)
-    mixer.music.play(loops=0)
+    selection_sound()
     print()
     print("The party begins to wander down the right path.")
     print("It's pretty dark, you can't see too far ahead of yourself, which is unsettling.")
@@ -481,10 +449,7 @@ def right_path():
         print("Maybe...you shouldn't have drank whatever was in that vial.")
         game_over("Anton and Wyn tried to warn you.")
     if 'n' in vialansw:
-        mixer.init()
-        mixer.music.load(select_sound) 
-        mixer.music.set_volume(2.5)
-        mixer.music.play(loops=0)
+        selection_sound()
         print()
         print("The substance in that vial seems so tempting to drink.")
         print("You don't get why. You want to drink it, but...")
@@ -501,10 +466,7 @@ def right_path():
 
 
 def left_path():
-    mixer.init()
-    mixer.music.load(select_sound) 
-    mixer.music.set_volume(2.5)
-    mixer.music.play(loops=0)
+    selection_sound()
     print()
     print("The party begins to wander down the left path.")
     print("As you walk, you can't help but to notice that the air feels a bit colder.")
@@ -535,11 +497,8 @@ def left_path():
         print("They all frantically bite at you, as if they're starving and you're a meal")
         game_over("Turns out you are their meal. Those bats are the last thing you ever see again.")
     elif batansw=="2":
+        selection_sound()
         print()
-        mixer.init()
-        mixer.music.load(select_sound) 
-        mixer.music.set_volume(2.5)
-        mixer.music.play(loops=0)
         print("You aren't going to let a few bats scare you off!")
         print("You duck as a bat swoops toward you.")
         print("Before your very eyes, you watch as all of the bats swarm together.")
@@ -583,11 +542,7 @@ def left_path():
         game_over("I'm telling mom you don't know how to choose 1 or 2")
 
 def bat_fight():
-    mixer.init()
-    mixer.music.load(select_sound) 
-    mixer.music.set_volume(2.5)
-    mixer.music.play(loops=0)
-    
+    selection_sound()
     print()
     print("You're going to fight and protect the party!")
     print("Despite the fear running through your veins, you'll protect them!")
@@ -602,10 +557,7 @@ def bat_fight():
     print("5= Screw this. RUN!")
     round1= input()
     if round1 == "1":
-        mixer.init()
-        mixer.music.load(select_sound) 
-        mixer.music.set_volume(2.5)
-        mixer.music.play(loops=0)
+        selection_sound()
         print()
         print("You point your stick at the bunch of bats")
         print("Roots erupt from the ground! They slash at the bats!")
@@ -613,10 +565,7 @@ def bat_fight():
         bat_attack1()
     
     elif round1== "2":
-        mixer.init()
-        mixer.music.load(select_sound) 
-        mixer.music.set_volume(2.5)
-        mixer.music.play(loops=0)
+        selection_sound()
         print()
         print("You let out a yell as you rush up to the bats.")
         print("You ball up your fist and swing at the flying creatures!")
@@ -624,10 +573,7 @@ def bat_fight():
         bat_attack1()
     
     elif round1== "3":
-        mixer.init()
-        mixer.music.load(select_sound) 
-        mixer.music.set_volume(2.5)
-        mixer.music.play(loops=0)
+        selection_sound()
         print()
         print("You gather up a decent amount of spit in your mouth.")
         print("Then, you fire away! You spit at the bats.(Congrats?)")
@@ -635,10 +581,7 @@ def bat_fight():
         bat_attack1()
  
     elif round1== "4":
-        mixer.init()
-        mixer.music.load(select_sound) 
-        mixer.music.set_volume(2.5)
-        mixer.music.play(loops=0)
+        selection_sound()
         print()
         print("You kneel down and close your eyes.")
         print("You don't exactly know who you're praying to.")
@@ -659,6 +602,7 @@ def bat_attack1():
     print()
     print("The hoard of bats fly closer toward you.")
     print("A few fly in front of your face, you can't see anything but dark wings!")
+    
 
     
     
@@ -675,10 +619,7 @@ def play_again(): #prompt the player to play again
     print("\nPlay again? (yes or no)")
     answ= input().lower()
     if 'y' in answ:
-        mixer.init()
-        mixer.music.load(select_sound) 
-        mixer.music.set_volume(2.5)
-        mixer.music.play(loops=0)
+        selection_sound()
         start() #start over if player says yes
     elif 'n' in answ:
         exit() #exit out of game if player says no
@@ -688,7 +629,7 @@ def play_again(): #prompt the player to play again
 
 def game_over(reason): #gameover screen
     mixer.init()
-    mixer.music.load(gameover_sound) #game over sound
+    mixer.music.load(gameover_sound) #sound that plays when user gets a game over
     mixer.music.set_volume(2.5)
     mixer.music.play(loops=0)
     print ("\n" + reason) #reason is dialogue written with game over function 
