@@ -784,9 +784,6 @@ def good_ending():
     play_again()
 
 
-
-
-
 def bad_ending():
     print()
     print("No way, you're not going to work for this guy.")
@@ -807,7 +804,7 @@ def bad_ending():
     print("They're talking, but their voices seem so far away...")
     print("Your vision dulls...")
     print("You take one last breath, and...")
-    game_over("Everything goes black. That all was for nothing.")
+    game_over("Everything goes black. All of that was for nothing.")
 
 #play again and game over copied from https://thecodingpie.com/post/make-your-own-text-based-adventure-game-in-python3
 def play_again(): #prompt the player to play again
