@@ -8,6 +8,9 @@ from pygame import mixer
 start_sound= 'mixkit-medieval-show-fanfare-announcement-226.wav'
 gameover_sound= 'mixkit-player-losing-or-failing-2042.wav'
 select_sound= 'mixkit-extra-bonus-in-a-video-game-2045.wav'
+bbg_win_sound= 'mixkit-game-level-completed-2059.wav'
+bbg_loose_sound= 'mixkit-ominous-drums-227.wav'
+name_remembered_sound= 'mixkit-game-bonus-reached-2065.wav'
 
 
 root= Tk() #making tkinter window
@@ -19,7 +22,7 @@ Button(root, image= photo).pack(side = TOP) # image set on button
 root.after(8000, root.destroy) #after 4 seconds, the title screen will disappear
 mixer.init()
 mixer.music.load(start_sound) #epic start up music
-mixer.music.set_volume(2.5)
+mixer.music.set_volume(1.5)
 mixer.music.play(loops=0)
 mainloop()
 
@@ -36,7 +39,7 @@ def start():
     print(colored("You can stay in this endless void, if you so choose.", "blue", attrs= ['bold']))
     print()
     print("Stay in the void?\n(yes or no)")
-    voidansw= input().lower() #user input will be lowercase
+    voidansw= input("---> ").lower() #user input will be lowercase
     if 'y' in voidansw:
         void_room()
     elif 'n' in voidansw:
@@ -69,7 +72,7 @@ def proceed():
     print (colored("You must join a group of...adventurers of sorts.", "blue", attrs= ['bold']))
     print()
     print ("Will you agree to these terms?\n(yes or no)")
-    adventureansw= input().lower()
+    adventureansw= input("---> ").lower()
     if 'y' in adventureansw:
         warp_room()
     elif 'n' in adventureansw:
@@ -89,7 +92,7 @@ def warp_room():
     print (colored("You should be on your way then.", "blue", attrs= ['bold']))
     print (colored("Are you all ready to go?","blue", attrs= ['bold']))
     print ("(yes or no)")
-    leaveansw= input().lower()
+    leaveansw= input("---> ").lower()
     if 'y' in leaveansw:
         selection_sound()
         print()
@@ -112,7 +115,7 @@ def outside_of_dungeon():
     print ("In a distance, you can make out the sounds of a few different voices.")
     print()
     print ("Will you approach the sounds?\n(yes or no)")
-    soundansw= input().lower()
+    soundansw= input("---> ").lower()
     if 'y' in soundansw:
         approach()
     elif 'n' in soundansw:
@@ -135,7 +138,7 @@ def stay():
     print("These, what you assume to be people, must be the group of adventurers that voice refrenced")
     print()
     print("Will you approach the adventurers?\n(yes or no)")
-    adventureansw= input().lower()
+    adventureansw= input("---> ").lower()
     if 'y' in adventureansw:
         approach()
     elif 'n' in adventureansw:
@@ -165,7 +168,7 @@ def approach():
     print("What do you do? (1 or 2)")
     print("1= Throw the large stick by your feet at the wolf")
     print("2= Let the others handle it")
-    wolfansw= input()
+    wolfansw= input("---> ")
     if wolfansw == "1":
         stick()
     elif wolfansw == "2":
@@ -186,7 +189,7 @@ def stand():
     print("Quick! What're you going to do?! (1 or 2)")
     print("1= Throw the stick by your feet at the wolf")
     print("2= RUN!")
-    anotherwolfansw= input()
+    anotherwolfansw= input("---> ")
     if anotherwolfansw == "1":
         stick()
     elif anotherwolfansw == "2":
@@ -221,11 +224,13 @@ def stick():
     print("Will you say anything? (1 or 2)")
     print("1= Say nothing")
     print("2= Speak up")
-    speakingansw= input()
+    speakingansw= input("---> ")
     if speakingansw == "1":
         silence()
-    if speakingansw == "2":
+    elif speakingansw == "2":
         speak()
+    else:
+        game_over("Shaking my head.")
 def speak():
     selection_sound()
     print()
@@ -265,7 +270,7 @@ def speak():
     print("It must be these people. What would happen if you disobeyed that voice?")
     print(colored("Poloma: 'Sooo, are you in?'", "yellow"))
     print("Will you join them? \n(yes or no)")
-    joinansw= input().lower()
+    joinansw= input("---> ").lower()
     if 'y' in joinansw:
         user_joins()
     elif 'n' in joinansw:
@@ -314,7 +319,7 @@ def silence():
     print("It must be these people. What would happen if you disobeyed that voice?")
     print(colored("Poloma: 'Sooo, are you in?'", "yellow"))
     print("Will you join them? \n(yes or no)")    
-    joinansw= input().lower()
+    joinansw= input("---> ").lower()
     if 'y' in joinansw:
         user_joins()
     elif 'n' in joinansw:
@@ -386,7 +391,7 @@ def user_joins():
     print("Which way do you want to go? (1 or 2)")
     print("1= Left")
     print("2= Right")
-    directionansw= input()
+    directionansw= input("---> ")
     if directionansw== "1":
         print()
         print(colored("You: 'Let's head left.'", "blue"))
@@ -423,7 +428,7 @@ def right_path():
     print("What's the worst that can happen, anyways?")
     print()
     print("Are you going to drink the mysterious liquid?\n(yes or no)")
-    vialansw= input().lower()
+    vialansw= input("---> ").lower()
     if 'y' in vialansw:
         print()
         print("Ah! You can't take it!")
@@ -486,7 +491,7 @@ def left_path():
     print("What're you going to do?! (1 or 2)")
     print("1 = RUN FOR YOUR LIFE!!!")
     print("2= Stand your ground with the party")
-    batansw= input()
+    batansw= input("---> ")
     if batansw== "1":
         print()
         print("Screw this! You didn't sign up to deal with blood-thirsty bats!")
@@ -518,7 +523,7 @@ def left_path():
         print("They all fly to each other, forming a big ball of blood-thirsty bats.")
         print("You're the only one not bound by the roots. It looks like it's up to you!")
         print("Will you fight to protect the party?\n(yes or no)")
-        fightansw= input().lower()
+        fightansw= input("---> ").lower()
         if 'y' in fightansw:
             bat_fight()
         if 'n' in fightansw:
@@ -537,11 +542,39 @@ def left_path():
             print()
             print("Before you can breathe, the roots drag you into the dirt.")
             game_over("Maybe you shouldn't have betrayed the party.")
-
+        else:
+            game_over("I'll just take that as a no.")
     else:
         game_over("I'm telling mom you don't know how to choose 1 or 2")
 
+def bat_win_sound():
+    mixer.init()
+    mixer.music.load(bbg_win_sound) 
+    mixer.music.set_volume(2.5)
+    mixer.music.play(loops=0)
+
+def bat_loose_sound():
+    mixer.init()
+    mixer.music.load(bbg_loose_sound) 
+    mixer.music.set_volume(2.5)
+    mixer.music.play(loops=0)
+
+
+
 def bat_fight():
+    playerhp= 75 #player's health
+    bathp=100 #BBG (Big Bad Guy)'s health
+
+    import random #for the BBG's attacks
+
+    #amount of damage each player attack does
+    stick_attack= 20 
+    punch_attack= 10
+    spit_attack= 5
+    pray_attack= 15
+
+
+    
     selection_sound()
     print()
     print("You're going to fight and protect the party!")
@@ -549,70 +582,232 @@ def bat_fight():
     print("To the very end!")
     print()
     print("You are now engaged in combat.")
-    print("What would you like to do? (1,2,3,4, or 5)")
+    print("What would you like to do? (1, 2, 3, 4, or 5)")
     print("1= Point your stick at the bats.")
     print("2= Punch the bats.")
     print("3= Spit at the bats.")
     print("4= Kneel down and pray for your life.")
     print("5= Screw this. RUN!")
-    round1= input()
-    if round1 == "1":
-        selection_sound()
-        print()
-        print("You point your stick at the bunch of bats")
-        print("Roots erupt from the ground! They slash at the bats!")
-        print("Looks like it hurt...")
-        bat_attack1()
-    
-    elif round1== "2":
-        selection_sound()
-        print()
-        print("You let out a yell as you rush up to the bats.")
-        print("You ball up your fist and swing at the flying creatures!")
-        print("Looks like it did a bit of damage.")
-        bat_attack1()
-    
-    elif round1== "3":
-        selection_sound()
-        print()
-        print("You gather up a decent amount of spit in your mouth.")
-        print("Then, you fire away! You spit at the bats.(Congrats?)")
-        print("It seems to do...something, anyways.")
-        bat_attack1()
- 
-    elif round1== "4":
-        selection_sound()
-        print()
-        print("You kneel down and close your eyes.")
-        print("You don't exactly know who you're praying to.")
-        print("You wish for help. You think back to the voice from the void...")
-        print("Suddenly, roots rip out of the ground, thrashing wildly at the bats!")
-        print("They appear to be weakened from that. Cool!")
-        bat_attack1()
 
-    elif round1== "5":
-        print()
-        print("You turn on your heel and run...")
-        print("When suddenly, a root comes out of the ground!")
-        print("It wraps around your leg and drags you to the ground!")
-        print("The bats swarm you! Oh no!")
-        game_over("You tried to run, but now you're dead.")
-
-def bat_attack1():
+    while playerhp>0 and bathp: #ONLY run when both the player and bats are alivr
+        user_attack=input("---> ")
+        if user_attack== "1":
+            selection_sound()
+            print()
+            print("You point your stick at the bunch of bats")
+            print("Roots erupt from the ground! They slash at the bats!")
+            print("Looks like it hurt...sucks to be them.")
+            bathp= bathp-stick_attack #subtracts the attack from bat's health
+        elif user_attack== "2":
+            selection_sound()
+            print()
+            print("You let out a yell as you rush up to the bats.")
+            print("You ball up your fist and swing at the flying creatures!")
+            print("Appears as if did a bit of damage.")
+            bathp= bathp-punch_attack 
+        elif user_attack=="3":
+            selection_sound()
+            print()
+            print("You gather up a decent amount of spit in your mouth.")
+            print("Then, you fire away! You spit at the bats.(Congrats?)")
+            print("It seems to do...something, anyways.")
+            bathp= bathp-spit_attack
+        elif user_attack=="4":
+            selection_sound()
+            print()
+            print("You kneel down and close your eyes.")
+            print("You don't exactly know who you're praying to.")
+            print("You wish for help. You think back to the voice from the void...")
+            print("Suddenly, roots rip out of the ground, thrashing wildly at the bats!")
+            print("They appear to be weakened from that. Cool!")
+            bathp= bathp-pray_attack
+        elif user_attack =="5":
+            print()
+            print("You turn on your heel and run...")
+            print("When suddenly, a root comes out of the ground!")
+            print("It wraps around your leg and drags you to the ground!")
+            print("The bats swarm you! Oh no!")
+            game_over("You tried to run, but now you're dead.")
+        else:
+            print("You chose an invalid choice. Try again.")
+            bat_fight()
+        if playerhp>0 and bathp>0:
+            print()
+            print("The bats rush at you! Some of them wack you with your wings! Others bite you! Ow!")
+            bat_attack=random.randint(1,15) #the bat will deal a random amount of damage from 1 through 15 to the player
+            playerhp= playerhp-bat_attack
+            print("You definitely took some damage...but you're still standing and able to fight!")
+        if bathp > 0:
+            print()
+            print("The bats are still up and bloodthirsty! Do something! (1, 2, 3, 4, or 5)")
+            print("1= Point your stick at the bats.")
+            print("2= Punch the bats.")
+            print("3= Spit at the bats.")
+            print("4= Kneel down and pray for your life.")
+            print("5= Screw this. RUN!")
+        if playerhp<=0:
+            bat_loose_sound()
+            print()
+            print("You feel weak. You can't keep standing...")
+            print("Your body slumps to the grond.")
+            print("You can feel your life draining away from your body...")
+            print("You are dead.")
+            print()
+            print(colored("That's it?", "blue", attrs= ['bold']))
+            print(colored("Are you really going to die right as things were getting good?", "blue", attrs= ['bold']))
+            print(colored("I'm not usually allowed to do this, but...", "blue", attrs= ['bold']))
+            print(colored("How about another shot? Right where you began this fight?", "blue", attrs= ['bold']))
+            print("Do you want to try again?(yes or no)")
+            choiceansw= input("---> ").lower()
+            if 'y' in choiceansw:
+                selection_sound()
+                print()
+                print(colored("HAHA! Yes! Make me proud!", "blue", attrs= ['bold']))
+                bat_fight()
+            if 'n' in choiceansw:
+                print()
+                print(colored("Ah, that's disappointing.", "blue", attrs= ['bold']))
+                print(colored("You're no fun.", "blue", attrs= ['bold']))
+                print(colored("Fine. Have it your way...", "blue", attrs= ['bold']))
+                game_over("You gave up.")
+            else:
+                game_over(colored("I'll just take that as a no", "blue", attrs= ['bold']))
+        if bathp <= 0:
+            print()
+            print("The bats suddenly drop to the floor, too weak to continue")
+            print("You watch as they disintegrate into dust. Just what were they?...")
+            print("...Was now the time to be asking questions? Because...")
+            print("The bats are down! You did it!")
+            batfight_winner()
+             
+def batfight_winner():
+    bat_win_sound()
     print()
-    print("The hoard of bats fly closer toward you.")
-    print("A few fly in front of your face, you can't see anything but dark wings!")
-    
+    print()
+    print("You hunch over and try to catch your breath.")
+    print("That was a lot. Really scary. Really strenuous. You're exhausted.")
+    print("Almost as if on cue, the roots holding the party down sink back into the ground.")
+    print(colored("Anton: 'Oh my gosh are you okay?'", "red"))
+    print("Before you can answer, however...")
+    print(colored("Gale: 'It dropped Canner's staff. So we're done here.'", "cyan"))
+    print("All this...for a staff?")
+    print(colored("Poloma: 'Hooray! You did great! And now we won't be turned into ducks!'", "yellow"))
+    print(colored("Henry: 'Quack.'", "yellow", attrs= ['bold']))
+    print("Wyn steps up to you and puts a hand on your forehead.")
+    print("Before you could even question what he was doing, you started feeling less exahusted.")
+    print(colored("Wyn: 'I just cast Cure Wounds on you. Thank you for what you did back there.'", "green"))
+    print("You open your mouth to thank the elf, but once again, before you're able to speak...")
+    print(colored("Rue: 'Sorry, not to rush things but where the heck is Canner?'", "magenta"))
+    print("Canner, the God that sent these people on this journey. Just for a staff.")
+    print("Just who was this guy??")
+    print(colored("Why, I've been here the whole time!", "blue", attrs= ['bold']))
+    print("Wait a minute, you knew that voice.")
+    print("Before your eyes, a portal opens up. A blonde male's head pops out.")
+    print("His clothes looked very old and tattered. He wore a crazy crown on his head.")
+    print("And...this guy really needed a haircut.")
+    print("So...this was the source of the voice? It was Canner all along?")
+    print(colored("Poloma: 'You what...?'", "yellow"))
+    print(colored("Canner: 'Well...being a god and all can get kinda boring, soooo...'", "blue", attrs= ['bold']))
+    print(colored("Rue: 'Oh my god this guy is already giving me a headache.'", "magenta"))
+    print(colored("Wyn: 'Well. Uh. Your staff is right here, so...'", "green"))
+    print(colored("Canner: 'It was about more than that.'", "blue", attrs= ['bold']))
+    print(colored("Canner: 'A lost soul wound up in my realm.'", "blue", attrs= ['bold']))
+    print("...Why was Canner looking at you? Were...you the lost soul?")
+    print(colored("Canner: 'At first I was just going to send it away, but then I thought...'", "blue", attrs= ['bold']))
+    print("Canner smiles, like a child on Christmas morning.")
+    print(colored("Canner: 'Why not have some fun?'", "blue", attrs= ['bold']))
+    print(colored("Canner: 'I granted the soul life and ordered them to join your party.'", "blue", attrs= ['bold']))
+    print(colored("Canner: 'It was a test, to see if they were capable of serving under me.'", "blue", attrs= ['bold']))
+    print(colored("Canner: 'And they passed.'", "blue", attrs= ['bold']))
+    print(colored("Canner: 'So. How about I offer a deal with you?'", "blue", attrs= ['bold']))
+    print("The male extends a hand toward you. A hand to shake.")
+    print(colored("Canner: 'I help you, and you help me. You follow my instructions and I lend you power.'", "blue", attrs= ['bold']))
+    print(colored("Canner: 'Whaddya say? Sounds like a good deal, doesn't it?'", "blue", attrs= ['bold']))
+    print()
+    print("Will you shake Canner's hand and agree to his deal? (yes or no)")
+    canneransw= input("--> ").lower()
+    if 'y' in canneransw:
+        good_ending()
+    if 'n' in canneransw:
+        bad_ending()
+    else:
+        game_over("It was a simple question, really.")
 
-    
-    
+def name_sound():
+    mixer.init()
+    mixer.music.load(name_remembered_sound) 
+    mixer.music.set_volume(2.5)
+    mixer.music.play(loops=0)
+
+
+def good_ending():
+    selection_sound()
+    print()
+    print("You extend your hand out and shake Canner's hand.")
+    print(colored("Poloma: 'So all of this was to see if you'd become their God?'", "yellow"))
+    print(colored("Canner: 'Something like that- wait a minute, their?...Oh, yeah! You don't know your name.'", "blue", attrs= ['bold']))
+    print(colored("Canner: 'I can fix that.'", "blue", attrs= ['bold']))
+    print("Canner leans over and flicks you roughly on the forehead. It hurts, but before you can complain...")
+    print("...your name comes flooding back! You remember!")
+    print("Your name is...")
+    username= input("--> ")
+    name_sound()
+    print(username,"!", sep="")
+    print("Your name is", username,)
+    print("You can finally remember!")
+    print(colored("Canner: 'Consider it a gift of our patronship.'", "blue", attrs= ['bold']))
+    print("Before you can even thank the God, however...")
+    print(colored("Canner: 'Anyways, I have to go tend to my ducks now.'", "blue", attrs= ['bold']))
+    print(colored("Canner: 'I'll be in contact with you,'","blue", attrs= ['bold']))
+    print("And just like that, Canner snaps his fingers, and another portal appears.")
+    print("He flashes one last smile and grabs his staff, before falling back first into the portal, disappearing completely.")
+    print("It's now just you and the party again.")
+    print(colored("Anton: 'So you have a God now, too.'", "red"))
+    print("...Too?")
+    print(colored("Poloma: 'Yeah we all have Gods! Mine name is Jason!'", "yellow"))
+    print(colored("Wyn: 'Looks like you're one of us, now.'", "green"))
+    print(colored("Rue: 'Welcome to the club, I'll make sure Gale doesn't suck your blood.'", "magenta"))
+    print(colored("Gale: 'You'll get used to ignoring Rue.'", "cyan"))
+    print()
+    print("Looks like you survived, and made new friends, too!")
+    print("Congrats! Things ended in the best way they possibly could! You deserve a cookie!")
+    print()
+    print(colored("                                                                                 ", "white", "on_yellow", attrs= ['bold']))
+    print(colored("                                                                                 ", "white", "on_yellow", attrs= ['bold']))
+    print(colored("                                                                                 ", "white", "on_yellow", attrs= ['bold']))
+    print(colored("                                                                                 ", "white", "on_yellow", attrs= ['bold']))
+    print(colored("                                   THE END", "green", attrs=['bold']))
+    print(colored("                                                                                 ", "white", "on_yellow", attrs= ['bold']))
+    print(colored("                                                                                 ", "white", "on_yellow", attrs= ['bold']))
+    print(colored("                                                                                 ", "white", "on_yellow", attrs= ['bold']))
+    print(colored("                                                                                 ", "white", "on_yellow", attrs= ['bold']))
+    play_again()
 
 
 
 
 
-
-
+def bad_ending():
+    print()
+    print("No way, you're not going to work for this guy.")
+    print("You don't shake the male's hand. Instead, you shake your head at the God.")
+    print(colored("Canner: '...Really?'", "blue", attrs= ['bold']))
+    print("The male continues to hold his hand out, but your mind is made up.")
+    print("Eventually, Canner lets out a defeated sigh, and puts his hand down.")
+    print(colored("Canner: 'Well this is disappointing. You've made it this far, and...'", "blue", attrs= ['bold']))
+    print("The male lets out a small laugh, bringing a hand to rest on his forehead.")
+    print(colored("Canner: 'And now you've ruined it.'", "blue", attrs= ['bold']))
+    print(colored("Canner: 'You realize my powers are the only thing keeping you alive now, right?'", "blue", attrs= ['bold']))
+    print("Canner flicks his wrist. Suddenly, your body feels cold. You feel exhausted.")
+    print("No, this isn't tiredness. You're...dying.")
+    print(colored("Canner: 'You really had no choice but to make a deal with me, but...'", "blue", attrs= ['bold']))
+    print(colored("Canner: 'Whatever.'", "blue", attrs= ['bold']))
+    print(colored("Canner: 'I'll just find another soul to entertain me.'", "blue", attrs= ['bold']))
+    print("The party rushes over to your body on the ground.")
+    print("They're talking, but their voices seem so far away...")
+    print("Your vision dulls...")
+    print("You take one last breath, and...")
+    game_over("Everything goes black. That all was for nothing.")
 
 #play again and game over copied from https://thecodingpie.com/post/make-your-own-text-based-adventure-game-in-python3
 def play_again(): #prompt the player to play again
